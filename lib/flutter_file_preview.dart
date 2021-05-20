@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 
@@ -8,13 +7,8 @@ class FlutterFilePreview {
   static const MethodChannel _channel =
       const MethodChannel('flutter_file_preview');
 
-  static Future<String> openFile(String path, {
-    String title = ''
-  }) async {
-    Map<String, String> map = {
-      "path": path,
-      "title": title
-    };
+  static Future<String> openFile(String path, {String title = ''}) async {
+    Map<String, String> map = {"path": path, "title": title};
     final String result = await _channel.invokeMethod('openFile', map);
     return result;
   }
