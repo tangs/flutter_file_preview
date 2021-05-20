@@ -16,11 +16,15 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self setNeedsStatusBarAppearanceUpdate];
-  UIImage *backIcon = [UIImage imageWithContentsOfFile:self.backImgPath];
-  UIButton *backBtn = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 10, 20)];
-  [backBtn setImage:backIcon forState:UIControlStateNormal];
-  [backBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+//  UIImage *backIcon = [UIImage imageWithContentsOfFile:self.backImgPath];
+//  UIButton *backBtn = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 10, 20)];
+//  [backBtn setImage:backIcon forState:UIControlStateNormal];
+//  [backBtn setBounds:CGRectMake(0, 0, 10, 10)];
+//  [backBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+//  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:item1];
+    
+  UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)];
+  self.navigationItem.leftBarButtonItem = item1;
   self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
   self.myWebView = [[UIWebView alloc] initWithFrame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
   self.myWebView.scalesPageToFit = YES;//使文档的显示范围适合UIWebView的bounds
