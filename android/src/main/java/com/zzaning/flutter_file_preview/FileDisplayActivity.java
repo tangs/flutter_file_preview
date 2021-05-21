@@ -160,20 +160,24 @@ public class FileDisplayActivity extends AppCompatActivity {
     private void openFile(File file) {
         if (file != null && !TextUtils.isEmpty(file.toString())) {
             //增加下面一句解决没有TbsReaderTemp文件夹存在导致加载文件失败
-            String bsReaderTemp = "/storage/emulated/0/TbsReaderTemp";
+//            String bsReaderTemp = "/storage/emulated/0/TbsReaderTemp";
+            String bsReaderTemp = getCacheDir("TbsReaderTemp").getAbsolutePath();
             File bsReaderTempFile = new File(bsReaderTemp);
             if (!bsReaderTempFile.exists()) {
-                Log.d(TAG, "准备创建/storage/emulated/0/TbsReaderTemp！！");
+//                Log.d(TAG, "准备创建/storage/emulated/0/TbsReaderTemp！！");
+                Log.d(TAG, "准备创建" + bsReaderTemp + "！！");
                 boolean mkdir = bsReaderTempFile.mkdir();
                 if (!mkdir) {
-                    Log.e(TAG, "创建/storage/emulated/0/TbsReaderTemp失败！！！！！");
+//                    Log.e(TAG, "创建/storage/emulated/0/TbsReaderTemp失败！！！！！");
+                    Log.e(TAG, "创建\" + bsReaderTemp + \"失败！！！！！");
                 }
             }
             //加载文件
             Bundle localBundle = new Bundle();
             Log.d(TAG, file.toString());
             localBundle.putString("filePath", file.toString());
-            localBundle.putString("tempPath", Environment.getExternalStorageDirectory() + "/" + "TbsReaderTemp");
+//            localBundle.putString("tempPath", Environment.getExternalStorageDirectory() + "/" + "TbsReaderTemp");
+            localBundle.putString("tempPath", bsReaderTemp + "/" + "TbsReaderTemp");
             boolean bool = this.tbsReaderView.preOpen(getFileType(file.toString()), false);
             if (bool) {
                 this.tbsReaderView.openFile(localBundle);
