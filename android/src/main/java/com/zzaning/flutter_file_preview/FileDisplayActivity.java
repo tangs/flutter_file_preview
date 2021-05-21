@@ -184,12 +184,15 @@ public class FileDisplayActivity extends AppCompatActivity {
     }
 
     private File getCacheDir(String url) {
-        return new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/007/");
+//        return new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/007/");
+        return new File(getBaseContext().getCacheDir() + "/007/");
     }
 
     private File getCacheFile(String url) {
-        File cacheFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/007/"
-            + getFileName(url));
+//        File cacheFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/007/"
+//            + getFileName(url));
+        File cacheFile = new File(getBaseContext().getCacheDir() + "/007/"
+                + getFileName(url));
         Log.d(TAG, "缓存文件 = " + cacheFile.toString());
         return cacheFile;
     }
