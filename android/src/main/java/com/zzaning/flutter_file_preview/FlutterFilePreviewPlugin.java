@@ -96,15 +96,15 @@ public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandle
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         switch (call.method) {
             case "openFile":
-                FileDisplayActivity.show(context, filePath, true, title);
 //                String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//                String filePath = call.argument("path");
-//                String title = call.argument("title");
+                String filePath = call.argument("path");
+                String title = call.argument("title");
 //                if (!EasyPermissions.hasPermissions(context, perms)) {
 //                    EasyPermissions.requestPermissions(activity, "需要访问手机存储权限", 10086, perms);
 //                } else {
 //                    FileDisplayActivity.show(context, filePath, true, title);
 //                }
+                FileDisplayActivity.show(context, filePath, true, title);
                 result.success("done");
                 break;
             case "openDebug":
