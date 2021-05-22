@@ -7,6 +7,12 @@ class FlutterFilePreview {
   static const MethodChannel _channel =
       const MethodChannel('flutter_file_preview');
 
+  static Future<bool> init() async {
+    Map<String, String> map = {};
+    final bool result = await _channel.invokeMethod('init', map);
+    return result;
+  }
+
   static Future<String> openFile(String path, {String title = ''}) async {
     Map<String, String> map = {"path": path, "title": title};
     final String result = await _channel.invokeMethod('openFile', map);

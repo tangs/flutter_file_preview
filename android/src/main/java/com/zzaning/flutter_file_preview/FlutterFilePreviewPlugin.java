@@ -23,6 +23,10 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
+    interface Callback {
+        public void OnEnd(boolean isSuccess);
+    }
+
     private MethodChannel channel;
     private String TAG = "log | flutter_file_preview | ";
     private Context context;
@@ -33,7 +37,7 @@ public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandle
         channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "flutter_file_preview");
         channel.setMethodCallHandler(this);
         context = flutterPluginBinding.getApplicationContext();
-        initQbSdk();
+//        initQbSdk();
     }
 
     public static void registerWith(Registrar registrar) {
@@ -42,7 +46,7 @@ public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandle
         channel.setMethodCallHandler(plugin);
         plugin.context = registrar.context();
         plugin.activity = registrar.activity();
-        plugin.initQbSdk();
+//        plugin.initQbSdk();
     }
 
     /* 监听Activity*/
@@ -68,7 +72,7 @@ public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandle
         // your plugin is no longer associated with an Activity. Clean up references.
     }
 
-    private void initQbSdk() {
+    private void initQbSdk(Callback callback) {
         // 首次初始化冷启动优化
         // 在调用TBS初始化、创建WebView之前进行如下配置
         HashMap map = new HashMap();
@@ -88,6 +92,7 @@ public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandle
           public void onViewInitFinished(boolean b) {
             //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
             Log.e(TAG, "加载内核是否成功:" + b);
+            callback.OnEnd(b);
           }
         });
     }
@@ -95,6 +100,11 @@ public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandle
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         switch (call.method) {
+            case "init":
+                initQbSdk((boolean isSuccess) -> {
+                    result.success(isSuccess);
+                });
+                break;
             case "openFile":
 //                String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
                 String filePath = call.argument("path");
