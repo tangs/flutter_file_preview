@@ -1,6 +1,5 @@
 package com.zzaning.flutter_file_preview;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -20,7 +19,6 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
     interface Callback {
