@@ -107,16 +107,17 @@ public class FlutterFilePreviewPlugin implements FlutterPlugin, MethodCallHandle
 //                String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
                 String filePath = call.argument("path");
                 String title = call.argument("title");
+                String fileType = call.argument("fileType");
 //                if (!EasyPermissions.hasPermissions(context, perms)) {
 //                    EasyPermissions.requestPermissions(activity, "需要访问手机存储权限", 10086, perms);
 //                } else {
 //                    FileDisplayActivity.show(context, filePath, true, title);
 //                }
-                FileDisplayActivity.show(context, filePath, true, title);
+                FileDisplayActivity.show(context, filePath, fileType, true, title);
                 result.success("done");
                 break;
             case "openDebug":
-                FileDisplayActivity.show(context, "http://debugtbs.qq.com", false, "X5 Core Debug");
+                FileDisplayActivity.show(context, "http://debugtbs.qq.com", "", false, "X5 Core Debug");
                 result.success("done");
                 break;
             case "getPlatformVersion":

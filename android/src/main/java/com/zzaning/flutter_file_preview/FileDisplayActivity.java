@@ -36,14 +36,16 @@ public class FileDisplayActivity extends AppCompatActivity {
     private TBSWebView x5WebView;
     private RelativeLayout rlRoot;
     private String url;
+    private String fileType;
     private TbsReaderView tbsReaderView;
 
-    public static void show(Context context, String url, boolean isOpenFile, String title) {
+    public static void show(Context context, String url, String fileType, boolean isOpenFile, String title) {
         Intent intent = new Intent(context, FileDisplayActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("url", url);
         bundle.putSerializable("isOpenFile", isOpenFile);
         bundle.putSerializable("title", title);
+        bundle.putSerializable("fileType", fileType);
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
@@ -57,6 +59,7 @@ public class FileDisplayActivity extends AppCompatActivity {
         String title = getIntent().getStringExtra("title");
         boolean isOpenFile = getIntent().getBooleanExtra("isOpenFile", false);
         url = getIntent().getStringExtra("url");
+        fileType = getIntent().getStringExtra("fileType");
         titleBar.getCenterTextView().setText(title);
 //        leftBackLtl.setTitle(title).leftFinish(true);
         x5WebView.addJavascriptInterface(new JsObject(), "android");
@@ -206,6 +209,9 @@ public class FileDisplayActivity extends AppCompatActivity {
     }
 
     private String getFileType(String paramString) {
+        if (fileType != null && fileType.length() > 0) {
+            return fileType;
+        }
         String str = "";
 
         if (TextUtils.isEmpty(paramString)) {
