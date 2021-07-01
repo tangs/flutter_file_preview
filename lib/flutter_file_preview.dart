@@ -13,8 +13,13 @@ class FlutterFilePreview {
     return result;
   }
 
-  static Future<String> openFile(String path, {String title = ''}) async {
-    Map<String, String> map = {"path": path, "title": title};
+  static Future<String> openFile(String path,
+      {String title = '', String fileType = ''}) async {
+    Map<String, String> map = {
+      "path": path,
+      "title": title,
+      'fileType': fileType
+    };
     final String result = await _channel.invokeMethod('openFile', map);
     return result;
   }
