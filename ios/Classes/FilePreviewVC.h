@@ -9,5 +9,6 @@
 
 @interface FilePreviewVC : UIViewController
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *fileType;
 @property (nonatomic, copy) NSString *backImgPath;
 @end

@@ -32,9 +32,14 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-  NSURL *filePath = [NSURL URLWithString:self.url];
-  NSURLRequest *request = [NSURLRequest requestWithURL: filePath];
-  [self.myWebView loadRequest:request];
+    if ([self.url hasPrefix:@"/"]) {
+        NSData *data = [[NSFileManager defaultManager] contentsAtPath:self.url];
+        [self.myWebView loadData:data MIMEType:self.fileType textEncodingName:@"UTF-8" baseURL:nil];
+    } else {
+      NSURL *filePath = [NSURL URLWithString:self.url];
+      NSURLRequest *request = [NSURLRequest requestWithURL: filePath];
+      [self.myWebView loadRequest:request];
+    }
 }
 
 - (void)close {

@@ -19,9 +19,11 @@
   if ([@"openFile" isEqualToString:call.method]) {
     NSString *path = call.arguments[@"path"];
     NSString *title = call.arguments[@"title"];
+    NSString *fileType = call.arguments[@"fileType"];
     FilePreviewVC *preview = [[FilePreviewVC alloc] init];
     preview.backImgPath = self.backImgPath;
     preview.url = path;
+    preview.fileType = fileType;
     preview.title = title != NULL ? title : @"文件预览";
     UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:preview];
     [self.hostViewController presentViewController:navCtrl animated:YES completion:nil];
